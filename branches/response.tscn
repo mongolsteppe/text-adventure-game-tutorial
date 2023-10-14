@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://mhr2tjthnq2u"]
+
+[ext_resource type="FontFile" uid="uid://bvogsmirtmlt5" path="res://IBMPlexMono-Regular.ttf" id="1_xdquq"]
+
+[node name="Response" type="Label"]
+offset_right = 1566.0
+offset_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_xdquq")
+theme_override_font_sizes/font_size = 30
+text = "hi"
+autowrap_mode = 1

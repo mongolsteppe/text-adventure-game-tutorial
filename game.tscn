@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyb7ho7a8v6qj"]
+
+[ext_resource type="FontFile" uid="uid://bvogsmirtmlt5" path="res://IBMPlexMono-Regular.ttf" id="1_j5nmu"]
+[ext_resource type="Script" path="res://Input.gd" id="1_orkrv"]
+[ext_resource type="Script" path="res://game.gd" id="1_vv8d0"]
+[ext_resource type="Script" path="res://CommandProcessor.gd" id="2_nnvim"]
+[ext_resource type="PackedScene" uid="uid://d4m1kx8lo642c" path="res://room.tscn" id="5_ddfsp"]
+[ext_resource type="Script" path="res://RoomManager.gd" id="5_lgr47"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ni5t5"]
+bg_color = Color(0.227451, 0.227451, 0.227451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih0fn"]
+bg_color = Color(0.396078, 0.396078, 0.368627, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goj4d"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_vv8d0")
+
+[node name="CommandProcessor" type="Node" parent="."]
+script = ExtResource("2_nnvim")
+
+[node name="Background" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Rows" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="GameInfo" type="PanelContainer" parent="Background/MarginContainer/Rows"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ni5t5")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/Rows/GameInfo"]
+layout_mode = 2
+
+[node name="HistoryRows" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Rows"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ih0fn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/Rows/InputArea"]
+layout_mode = 2
+
+[node name="Caret" type="Label" parent="Background/MarginContainer/Rows/InputArea/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_j5nmu")
+theme_override_font_sizes/font_size = 40
+text = ">"
+
+[node name="Input" type="LineEdit" parent="Background/MarginContainer/Rows/InputArea/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_j5nmu")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_goj4d")
+caret_blink = true
+script = ExtResource("1_orkrv")
+
+[node name="RoomManager" type="Node" parent="."]
+script = ExtResource("5_lgr47")
+
+[node name="HouseRoom" parent="RoomManager" instance=ExtResource("5_ddfsp")]
+offset_left = 2.0
+offset_top = -464.0
+offset_right = 252.0
+offset_bottom = -330.0
+room_name = "Start"
+room_desc = "Where you start"
+
+[node name="OutsideRoom" parent="RoomManager" instance=ExtResource("5_ddfsp")]
+offset_left = 316.0
+offset_top = -459.0
+offset_right = 566.0
+offset_bottom = -325.0
+room_name = "2nd room"
+room_desc = "Where you continue"
+
+[connection signal="text_submitted" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="." method="_on_input_text_submitted"]
+[connection signal="text_submitted" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" method="_on_text_submitted"]
