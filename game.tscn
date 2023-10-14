@@ -50,7 +50,6 @@ layout_mode = 2
 [node name="HistoryRows" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Rows"]
 custom_minimum_size = Vector2(0, 40)
@@ -83,8 +82,8 @@ offset_left = 2.0
 offset_top = -464.0
 offset_right = 252.0
 offset_bottom = -330.0
-room_name = "Start"
-room_desc = "Where you start"
+room_name = "Starting point"
+room_desc = "Where the user starts"
 
 [node name="OutsideRoom" parent="RoomManager" instance=ExtResource("5_ddfsp")]
 offset_left = 316.0
@@ -92,7 +91,7 @@ offset_top = -459.0
 offset_right = 566.0
 offset_bottom = -325.0
 room_name = "2nd room"
-room_desc = "Where you continue"
+room_desc = "Where you continue the adventure"
 
 [connection signal="text_submitted" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="." method="_on_input_text_submitted"]
 [connection signal="text_submitted" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" method="_on_text_submitted"]

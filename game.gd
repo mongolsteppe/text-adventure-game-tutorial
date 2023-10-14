@@ -11,10 +11,11 @@ const Response = preload("res://branches/response.tscn")
 @onready var room_manager = $RoomManager
 
 func _ready() -> void:
-	handle_response_generated("Welcome to the game. If you need guidance, type 'help'")
+	create_response("Welcome to the game. If you need guidance, type 'help'")
 	scrollbar.changed.connect(handle_scrollbar_changed)
-	command_processor.response_generated.connect(handle_response_generated)
-	command_processor.initialize(room_manager.get_child(0))
+
+	var starting_room_response = command_processor.initialize(room_manager.get_child(0))
+	create_response(starting_room_response)
 
 func handle_scrollbar_changed():
 	scroll.scroll_vertical = scrollbar.max_value
@@ -26,7 +27,7 @@ func _on_input_text_submitted(new_text: String) -> void:
 		input_response.set_text(new_text, response)
 		history_rows.add_child(input_response)
 
-func handle_response_generated(response_text: String):
+func create_response(response_text: String):
 	var response = Response.instantiate()
 	response.text = response_text #"Welcome to the game blablabla"
 	add_response_to_game(response)
